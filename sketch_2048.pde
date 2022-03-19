@@ -23,10 +23,8 @@ class colour{
 }
 
 
-// vertical lines = (187, 173, 160, 255)
-// 2 square = rgba(238,228,218,255)
-// 4 square = (238, 225, 201)
-// 8 square = (243, 178, 122)
+// black text = (119, 110, 101)
+// white text = (249, 246, 242)
 square[] squares = new square[16];
 HashMap<Integer, colour> valToCol = new HashMap<Integer, colour>();
 HashMap<Integer, Boolean> valToText = new HashMap<Integer, Boolean>();
@@ -103,7 +101,31 @@ void draw(){
         yPos = j * gap + 22;
       }
       
+      
+      
       square(xPos, yPos, 175);
+      
+      if(i == 3){
+        xPos += 50;
+      }else{
+        xPos += 60;
+      }
+      if(j == 0){
+        yPos += 110;
+      }else{
+        yPos += 120;
+      }  
+      
+
+      textSize(110);
+      boolean colourText = valToText.get(value);
+      if(colourText){
+        fill(119, 110, 101);
+      }
+      else{
+        fill(249, 246, 242);
+      }
+      text(str(value), xPos, yPos);
     }
   }
   
