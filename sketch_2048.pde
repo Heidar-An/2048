@@ -232,6 +232,15 @@ void moveLeft(){
   }
 }
 
+void moveUp(){
+  // check column by column
+  // start at the top and move down
+}
+
+void moveDown(){
+  // check column by column
+  // start at the bottom and move up
+}
 
 void keyPressed(){
   if(key == CODED){
@@ -244,9 +253,11 @@ void keyPressed(){
       generateRandomSquare();
     }
     else if(keyCode == UP){
+      moveUp();
       generateRandomSquare();
     }
     else if(keyCode == DOWN){
+      moveDown();
       generateRandomSquare();
     }
   }
