@@ -180,16 +180,23 @@ void moveRight(){
   // check row by row
   // start from right side and move left
   // squares have to have the same value to coalesce
+  
+  
   for(int i = 2; i > -1; i--){
     int currPos = i;
+    if(squares[currPos] == null){
+      continue;
+    }
     for(int j = i + 1; j < 4; j++){
       if(squares[j] != null){
         if(squares[j].value == squares[currPos].value){
           squares[j].doubleVal();
+          squares[currPos] = null;
         }
       }else{
         squares[j] = squares[currPos];
         squares[currPos] = null;
+        currPos = j;
       }
     }
   }
@@ -202,8 +209,8 @@ void moveRight(){
 void keyPressed(){
   if(key == CODED){
     if(keyCode == RIGHT){
-      generateRandomSquare();
       moveRight();
+      generateRandomSquare();
     }
     else if(keyCode == LEFT){
       generateRandomSquare();
