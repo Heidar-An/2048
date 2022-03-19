@@ -32,6 +32,7 @@ HashMap<Integer, colour> valToCol = new HashMap<Integer, colour>();
 void setup(){
   size(750, 750);
   squares[3] = new square(2, 0, 0);
+  squares[4] = new square(2, 0, 0);
   valToCol.put(2, new colour(238, 228, 218));
 }
 
@@ -82,6 +83,18 @@ void draw(){
       int value = cSquare.value;
       colour cColour = valToCol.get(value);
       fill(cColour.red, cColour.green, cColour.blue);
+      float xPos = i * gap + 20;
+      float yPos = j * gap + 20;
+      if(i == 0){
+        // left edge
+        xPos = i * gap + 25;
+      }
+      if(j == 0){
+        yPos = j * gap + 25;
+      }
+      if(i == 3){
+        xPos = i * gap;
+      }
       square(i * gap + 15, j * gap + 20, 166);
     }
   }
