@@ -32,14 +32,7 @@ HashMap<Integer, Boolean> valToText = new HashMap<Integer, Boolean>();
 void setup(){
   size(750, 750);
   
-  int rand = int(random(0, 17));
-  int ranVal = int(random(0, 2));
-  if(ranVal == 0){
-    ranVal = 2;
-  }else{
-    ranVal = 4;
-  }
-  squares[rand] = new square(ranVal, int(rand / 4), rand % 4);
+  generateRandomSquare();
   
   // put colours for each different value
   valToCol.put(2, new colour(238, 228, 218));
@@ -101,8 +94,6 @@ void draw(){
         yPos = j * gap + 22;
       }
       
-      
-      
       square(xPos, yPos, 175);
       
       if(i == 3){
@@ -153,5 +144,50 @@ void draw(){
     line(0, j * gap, 750, j * gap);
   }
   fill(205, 193, 180);
-  
 }
+
+Boolean generateRandomSquare(){
+  boolean full = true;
+  for(int i = 0; i < 16; i++){
+    if(squares[i] == null){
+      full = false;
+    }
+  }
+  
+  if(full){
+    return full;
+  }
+  while(true){
+    int rand = int(random(0, 17));
+    if(squares[rand] != null){
+      continue;
+    }
+    int ranVal = int(random(0, 2));
+    if(ranVal == 0){
+      ranVal = 2;
+    }else{
+      ranVal = 4;
+    }
+    
+    squares[rand] = new square(ranVal, int(rand / 4), rand % 4);
+    break;
+  }
+  return false;
+}
+
+void keyPressed(){
+  if(key == CODED){
+    if(keyCode == RIGHT){
+      print(squares.length);
+    }
+    else if(keyCode == LEFT){
+      print("LEFT");
+    }
+    else if(keyCode == UP){
+      print("UP");
+    }
+    else if(keyCode == DOWN){
+      print("DOWN");
+    }
+  }
+}  
