@@ -181,28 +181,27 @@ void moveRight(){
   // start from right side and move left
   // squares have to have the same value to coalesce
   
-  
-  for(int i = 2; i > -1; i--){
-    int currPos = i;
-    if(squares[currPos] == null){
-      continue;
-    }
-    for(int j = i + 1; j < 4; j++){
-      if(squares[j] != null){
-        if(squares[j].value == squares[currPos].value){
-          squares[j].doubleVal();
+  for(int z = 0; z < 4; z++){
+    for(int i = 2; i > -1; i--){
+      int currPos = z * 4 + i;
+      if(squares[currPos] == null){
+        continue;
+      }
+      for(int j = i + 1; j < 4; j++){
+        if(squares[z * 4 + j] != null){
+          if(squares[z * 4 + j].value == squares[currPos].value){
+            squares[z * 4 + j].doubleVal();
+            squares[currPos] = null;
+          }
+          break;
+        }else{
+          squares[z * 4 + j] = squares[currPos];
           squares[currPos] = null;
+          currPos = z * 4 + j;
         }
-      }else{
-        squares[j] = squares[currPos];
-        squares[currPos] = null;
-        currPos = j;
       }
     }
   }
-  
-  
-  
   
 }
 
