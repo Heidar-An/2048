@@ -262,6 +262,28 @@ void moveUp(){
 void moveDown(){
   // check column by column
   // start at the bottom and move up
+  // no need to look at the bottom row
+  for(int z = 0; z < 4; z++){
+    for(int i = 2; i > -1; i--){
+      int currPos = i * 4 + z; // get current square
+      if(squares[currPos] == null){
+        continue;
+      }
+      for(int j = currPos + 4; j < 16; j+=4){ // check squares in the same column below
+        if(squares[j] != null){
+          if(squares[j].value == squares[currPos].value){
+            squares[j].doubleVal();
+            squares[currPos] = null;
+          }
+          break;
+        }else{
+          squares[j] = squares[currPos];
+          squares[currPos] = null;
+          currPos = j;
+        }
+      }
+    }
+  }
 }
 
 void keyPressed(){
