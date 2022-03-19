@@ -178,16 +178,16 @@ Boolean generateRandomSquare(){
 void keyPressed(){
   if(key == CODED){
     if(keyCode == RIGHT){
-      print(squares.length);
+      generateRandomSquare();
     }
     else if(keyCode == LEFT){
-      print("LEFT");
+      generateRandomSquare();
     }
     else if(keyCode == UP){
-      print("UP");
+      generateRandomSquare();
     }
     else if(keyCode == DOWN){
-      print("DOWN");
+      generateRandomSquare();
     }
   }
 }  
