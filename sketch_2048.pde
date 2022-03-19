@@ -183,7 +183,7 @@ Boolean generateRandomSquare(){
       ranVal = 4;
     }
     
-    squares[rand] = new square(1024, int(rand / 4), rand % 4);
+    squares[rand] = new square(ranVal, int(rand / 4), rand % 4);
     break;
   }
   return full;
