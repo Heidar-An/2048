@@ -202,8 +202,36 @@ void moveRight(){
       }
     }
   }
-  
 }
+
+void moveLeft(){
+  // check row by row
+  // start from left side and move right
+  // squares have to have the same value to coalesce
+  
+  for(int z = 0; z < 4; z++){
+    for(int i = 1; i < 4; i++){
+      int currPos = z * 4 + i;
+      if(squares[currPos] == null){
+        continue;
+      }
+      for(int j = i - 1; j > -1; j--){
+        if(squares[z * 4 + j] != null){
+          if(squares[z * 4 + j].value == squares[currPos].value){
+            squares[z * 4 + j].doubleVal();
+            squares[currPos] = null;
+          }
+          break;
+        }else{
+          squares[z * 4 + j] = squares[currPos];
+          squares[currPos] = null;
+          currPos = z * 4 + j;
+        }
+      }
+    }
+  }
+}
+
 
 void keyPressed(){
   if(key == CODED){
@@ -212,6 +240,7 @@ void keyPressed(){
       generateRandomSquare();
     }
     else if(keyCode == LEFT){
+      moveLeft();
       generateRandomSquare();
     }
     else if(keyCode == UP){
