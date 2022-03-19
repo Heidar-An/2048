@@ -33,6 +33,7 @@ void setup(){
   size(750, 750);
   
   generateRandomSquare();
+  generateRandomSquare();
   
   // put colours for each different value
   valToCol.put(2, new colour(238, 228, 218));
@@ -173,6 +174,29 @@ Boolean generateRandomSquare(){
     break;
   }
   return false;
+}
+
+void moveRight(){
+  // check row by row
+  // start from right side and move left
+  // squares have to have the same value to coalesce
+  for(int i = 2; i > -1; i--){
+    int currPos = i;
+    for(int j = i + 1; j < 4; j++){
+      if(squares[j] != null){
+        if(squares[j].value == squares[currPos].value){
+          squares[j].doubleVal();
+        }
+      }else{
+        squares[j] = squares[currPos];
+        squares[currPos] = null;
+      }
+    }
+  }
+  
+  
+  
+  
 }
 
 void keyPressed(){
