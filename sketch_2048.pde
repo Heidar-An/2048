@@ -158,7 +158,7 @@ Boolean generateRandomSquare(){
     return full;
   }
   while(true){
-    int rand = int(random(0, 17));
+    int rand = int(random(0, 16));
     if(squares[rand] != null){
       continue;
     }
