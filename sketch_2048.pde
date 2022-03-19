@@ -1,11 +1,11 @@
 import java.util.Map;
 class square
 {
-  int value, xPos, yPos;
-  square(int val, int xpos, int ypos){
+  int value, row, column;
+  square(int val, int r, int c){
     value = val;
-    xPos = xpos;
-    yPos = ypos;
+    row = r;
+    column = c;
   }   
   
   void doubleVal(){
@@ -26,14 +26,42 @@ class colour{
 // vertical lines = (187, 173, 160, 255)
 // 2 square = rgba(238,228,218,255)
 // 4 square = (238, 225, 201)
+// 8 square = (243, 178, 122)
 square[] squares = new square[16];
 HashMap<Integer, colour> valToCol = new HashMap<Integer, colour>();
+HashMap<Integer, Boolean> valToText = new HashMap<Integer, Boolean>();
 
 void setup(){
   size(750, 750);
-  squares[3] = new square(2, 0, 0);
-  squares[4] = new square(2, 0, 0);
+  
+  int rand = int(random(0, 17));
+  squares[rand] = new square(32, int(rand / 4), rand % 4);
+  
+  // put colours for each different value
   valToCol.put(2, new colour(238, 228, 218));
+  valToCol.put(4, new colour(238, 225, 201));
+  valToCol.put(8, new colour(243, 178, 122));
+  valToCol.put(16, new colour(246, 150, 100));
+  valToCol.put(32, new colour(247, 124, 95));
+  valToCol.put(64, new colour(246, 94, 57));
+  valToCol.put(128, new colour(237, 206, 115));
+  valToCol.put(256, new colour(237, 202, 100));
+  valToCol.put(512, new colour(237, 198, 81));
+  valToCol.put(1024, new colour(238, 199, 68));
+  valToCol.put(2048, new colour(236, 194, 48));
+  
+  // if true, then dark font is being used, if false then light font is being used
+  valToText.put(2, true);
+  valToText.put(4, true);
+  valToText.put(8, false);
+  valToText.put(16, false);
+  valToText.put(32, false);
+  valToText.put(64, false);
+  valToText.put(128, false);
+  valToText.put(256, false);
+  valToText.put(512, false);
+  valToText.put(1024, false);
+  valToText.put(2048, false);
 }
 
 void draw(){
@@ -41,6 +69,37 @@ void draw(){
   
   float gap = 750/4;
   // change thickness of line
+  
+  strokeWeight(1);
+  // draw squares
+  // if the square is on the left edge of the grid, add 25 to x, if on the top edge, add 25 to y
+  // if on the bottom edge - 25 to y, if on the right edge, -25 to x
+  // else add or m
+  for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 4; j++){
+      square cSquare = squares[j * 4 + i];
+      
+      if(cSquare == null){
+        continue;
+      }
+      
+      int value = cSquare.value;
+      colour cColour = valToCol.get(value);
+      fill(cColour.red, cColour.green, cColour.blue);
+      
+      float xPos = i * gap + 15;
+      float yPos = j * gap + 7;
+      if(i == 0){
+        // left edge
+        xPos = i * gap + 13;
+      }
+      if(j == 0){
+        yPos = j * gap + 22;
+      }
+      
+      square(xPos, yPos, 175);
+    }
+  }
   
   stroke(187, 173, 160, 255);
   
@@ -63,40 +122,10 @@ void draw(){
   strokeWeight(20);
   // rows
   for(int j = 0; j < 5; j++){
-    line(0, j * gap + 5, 750, j * gap + 5);
+    line(0, j * gap, 750, j * gap);
   }
   fill(205, 193, 180);
   
-  strokeWeight(1);
-  // draw squares
-  // if the square is on the left edge of the grid, add 25 to x, if on the top edge, add 25 to y
-  // if on the bottom edge - 25 to y, if on the right edge, -25 to x
-  // else add or m
-  for(int i = 0; i < 4; i++){
-    for(int j = 0; j < 4; j++){
-      square cSquare = squares[j * 4 + i];
-      if(cSquare == null){
-        continue;
-      }
-      
-      
-      int value = cSquare.value;
-      colour cColour = valToCol.get(value);
-      fill(cColour.red, cColour.green, cColour.blue);
-      float xPos = i * gap + 20;
-      float yPos = j * gap + 20;
-      if(i == 0){
-        // left edge
-        xPos = i * gap + 25;
-      }
-      if(j == 0){
-        yPos = j * gap + 25;
-      }
-      if(i == 3){
-        xPos = i * gap;
-      }
-      square(i * gap + 15, j * gap + 20, 166);
-    }
-  }
+  
   
 }
