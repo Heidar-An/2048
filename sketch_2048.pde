@@ -28,6 +28,7 @@ class colour{
 square[] squares = new square[16];
 HashMap<Integer, colour> valToCol = new HashMap<Integer, colour>();
 HashMap<Integer, Boolean> valToText = new HashMap<Integer, Boolean>();
+boolean gameOver = false;
 
 void setup(){
   size(750, 750);
@@ -117,7 +118,17 @@ void draw(){
       else{
         fill(249, 246, 242);
       }
-      text(str(value), xPos, yPos);
+      if(value < 16){
+        text(str(value), xPos, yPos);
+      }else if(value < 128){
+        text(str(value), xPos - 30, yPos);
+      }else if(value < 1024){
+        textSize(90);
+        text(str(value), xPos - 40, yPos);
+      }else{
+        textSize(75);
+        text(str(value), xPos - 45, yPos);
+      }
     }
   }
   
@@ -149,6 +160,7 @@ void draw(){
 
 Boolean generateRandomSquare(){
   boolean full = true;
+  // check if the entire board is full
   for(int i = 0; i < 16; i++){
     if(squares[i] == null){
       full = false;
@@ -158,9 +170,10 @@ Boolean generateRandomSquare(){
   if(full){
     return full;
   }
+  // keep generating random squares until an empty square is found
   while(true){
     int rand = int(random(0, 16));
-    if(squares[rand] != null){
+    if(squares[rand] != null){ // square is not empty
       continue;
     }
     int ranVal = int(random(0, 2));
@@ -170,10 +183,10 @@ Boolean generateRandomSquare(){
       ranVal = 4;
     }
     
-    squares[rand] = new square(ranVal, int(rand / 4), rand % 4);
+    squares[rand] = new square(1024, int(rand / 4), rand % 4);
     break;
   }
-  return false;
+  return full;
 }
 
 void moveRight(){
@@ -286,23 +299,34 @@ void moveDown(){
   }
 }
 
+void gameOver(){
+  textSize(250);
+  fill(119, 110, 101);
+  text("Game Over!", 150, 300);
+}
+
 void keyPressed(){
-  if(key == CODED){
+  if(key == CODED && !gameOver){
+    boolean condition = false;
     if(keyCode == RIGHT){
       moveRight();
-      generateRandomSquare();
+      condition = generateRandomSquare();
     }
     else if(keyCode == LEFT){
       moveLeft();
-      generateRandomSquare();
+      condition = generateRandomSquare();
     }
     else if(keyCode == UP){
       moveUp();
-      generateRandomSquare();
+      condition = generateRandomSquare();
     }
     else if(keyCode == DOWN){
       moveDown();
-      generateRandomSquare();
+      condition = generateRandomSquare();
+    }
+    if(condition){
+      gameOver = true;
+      gameOver();
     }
   }
 }  
