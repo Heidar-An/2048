@@ -235,6 +235,16 @@ void moveLeft(){
 void moveUp(){
   // check column by column
   // start at the top and move down
+  // no need to check the topmost row
+  for(int i = 0; i < 4; i++){
+    for(int j = 1; j < 4; j++){
+      int currPos = j * 4 + i;
+      print(currPos + "\n");
+      for(int w = currPos + 4; w < 16; w++){
+        continue;
+      }
+    }
+  }
 }
 
 void moveDown(){
