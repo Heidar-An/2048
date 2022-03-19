@@ -203,6 +203,7 @@ void keyPressed(){
   if(key == CODED){
     if(keyCode == RIGHT){
       generateRandomSquare();
+      moveRight();
     }
     else if(keyCode == LEFT){
       generateRandomSquare();
