@@ -236,12 +236,24 @@ void moveUp(){
   // check column by column
   // start at the top and move down
   // no need to check the topmost row
-  for(int i = 0; i < 4; i++){
-    for(int j = 1; j < 4; j++){
-      int currPos = j * 4 + i;
-      print(currPos + "\n");
-      for(int w = currPos + 4; w < 16; w++){
+  for(int z = 0; z < 4; z++){
+    for(int i = 1; i < 4; i++){
+      int currPos = i * 4 + z; // get current square
+      if(squares[currPos] == null){
         continue;
+      }
+      for(int j = currPos - 4; j > -1; j-=4){ // check squares in the same column above
+        if(squares[j] != null){
+          if(squares[j].value == squares[currPos].value){
+            squares[j].doubleVal();
+            squares[currPos] = null;
+          }
+          break;
+        }else{
+          squares[j] = squares[currPos];
+          squares[currPos] = null;
+          currPos = j;
+        }
       }
     }
   }
