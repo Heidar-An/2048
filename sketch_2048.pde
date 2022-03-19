@@ -35,7 +35,13 @@ void setup(){
   size(750, 750);
   
   int rand = int(random(0, 17));
-  squares[rand] = new square(32, int(rand / 4), rand % 4);
+  int ranVal = int(random(0, 2));
+  if(ranVal == 0){
+    ranVal = 2;
+  }else{
+    ranVal = 4;
+  }
+  squares[rand] = new square(ranVal, int(rand / 4), rand % 4);
   
   // put colours for each different value
   valToCol.put(2, new colour(238, 228, 218));
@@ -125,7 +131,5 @@ void draw(){
     line(0, j * gap, 750, j * gap);
   }
   fill(205, 193, 180);
-  
-  
   
 }
